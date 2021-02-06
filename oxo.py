@@ -23,22 +23,26 @@ for i in range(0,nf):
     Liste.append('board.f['+str(i)+']')
     #pos = cmds.xform(Liste[i],q=True,t= True, ws=True)
 
-#fill the list of positions for X, Y and Z:
+#fill the list of positions for X and Z:
 x = []
-y = []
 z = []
 
-pos = cmds.xform(Liste[8],q=True,t= True, ws=True)
-x = [(pos[0] + pos[3] + pos[6]+ pos[9])/4.0]
-z = [(pos[2] + pos[5] + pos[8]+ pos[11])/4.0]
+for i in range(len(Liste)):
+    pos = cmds.xform(Liste[i],q=True,t= True, ws=True)
+    x.append((pos[0] + pos[3] + pos[6]+ pos[9])/4.0)
+    z.append((pos[2] + pos[5] + pos[8]+ pos[11])/4.0)
 
 #pos = cmds.xform(Liste[0],q=True,t= True, ws=True)
-print(x+y+z)
+print(x[0])
+print(z[0])
 #--------------
 #x = (pos[0] + pos[3] + pos[6]+ pos[9])/4.0
 #y = (pos[1] + pos[4] + pos[7]+ pos[10])/4.0
 #z = (pos[2] + pos[5] + pos[8]+ pos[11])/4.0
 #---------------
-cube = cmds.polyCube()
+# small move test:
+playerA = cmds.polyCube()
 cmds.move( x[0], 0, z[0] )
+playerB = cmds.polyCylinder(r=0.5, h=0.01)
+cmds.move( x[1], 0, z[1] )
 
