@@ -2,7 +2,7 @@ import maya.cmds as cmds
 cmds.file(f=True, new=True)
 sc = cmds.internalVar(userScriptDir=True)
 # 1 build 3x3 tic tac toe (oxo):
-# TTT = [[0,0,0],[0,0,0],[0,0,0]]
+TTT = [[0,0,0],[0,0,0],[0,0,0]]
 # print(TTT)
 
 # # Petit test de jeu
@@ -50,16 +50,49 @@ def playerMove(pos):
      changeLabel()
 
 def playerOne(pos):
+    printTable(pos, 1)
     cmds.polyCube()
     cmds.move( x[pos], 0, z[pos] )
     global pA
     pA = False
+
 def playerTwo(pos):
+    printTable(pos, 2)
     cmds.polyCylinder(r=0.5, h=0.5)
     cmds.move( x[pos], 0, z[pos] )
     global pA
     pA = True
 
+
+def printTable(pos, player):
+    #break numbers into table:\
+    print('pos: '+str(pos))
+    global TTT
+    if pos == 0 and TTT[0][0] == 0:
+        TTT[0][0] = player
+    elif pos == 1  and TTT[0][1] == 0:
+        TTT[0][1] = player
+    elif pos == 2 and TTT[0][2] == 0:
+        TTT[0][2] = player
+    elif pos == 3 and TTT[1][0] == 0:
+        TTT[1][0] = player
+    elif pos == 4 and TTT[1][1] == 0:
+        TTT[1][1] = player
+    elif pos == 5 and TTT[1][2] == 0:
+        TTT[1][2] = player
+    elif pos == 6 and TTT[2][0] == 0:
+        TTT[2][0] = player
+    elif pos == 7 and TTT[2][1] == 0:
+        TTT[2][1] = player
+    elif pos == 8 and TTT[2][2] == 0:
+        TTT[2][2] = player
+    print(TTT)
+
+
+def checkWinning(player):
+    for i in range(3):
+         if(TTT[i][0]==TTT[i][1]==TTT[i][2]==player or TTT[0][i]==TTT[1][i]==TTT[2][i]==player):
+             print('player X wins!')
 #---------------------------------------------------------------------------------------
 def changeLabel(*_):
     if(pA == True):
