@@ -43,10 +43,13 @@ def playerMove(pos):
      #print(pA)
      global someTrick
      someTrick = pos
-     if pA == True:
-        playerOne(pos)
+     if checkWin(1) == True:print('player One wins')
+     elif checkWin(2) == True:print('player Two wins')
      else:
-        playerTwo(pos)
+        if pA == True:
+            playerOne(pos)
+        else:
+            playerTwo(pos)
 
 def playerOne(pos):
     if checkWin(1) == False and checkCanPlay(pos) == True:
@@ -56,8 +59,6 @@ def playerOne(pos):
         changeLabelpA()
         global pA
         pA = False
-    else:
-        print('player Two wins')
 
 def playerTwo(pos):
     if checkWin(2) == False and checkCanPlay(pos) == True:
@@ -67,8 +68,6 @@ def playerTwo(pos):
         changeLabelpB()
         global pA
         pA = True
-    else:
-        print('player One wins')
 
 
 def printTable(pos, player):
