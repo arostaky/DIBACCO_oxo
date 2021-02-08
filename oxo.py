@@ -40,30 +40,35 @@ print(z[0])
 someTrick = 0
 
 def playerMove(pos):
-     print(pA)
+     #print(pA)
      global someTrick
      someTrick = pos
      if pA == True:
         playerOne(pos)
      else:
         playerTwo(pos)
-     changeLabel()
 
 def playerOne(pos):
-    if checkCanPlay(pos) == True:
+    if checkWin(1) == False and checkCanPlay(pos) == True:
         printTable(pos, 1)
         cmds.polyCube()
         cmds.move( x[pos], 0, z[pos] )
+        changeLabelpA()
         global pA
         pA = False
+    else:
+        print('player Two wins')
 
 def playerTwo(pos):
-    if checkCanPlay(pos) == True:
+    if checkWin(2) == False and checkCanPlay(pos) == True:
         printTable(pos, 2)
         cmds.polyCylinder(r=0.5, h=0.5)
         cmds.move( x[pos], 0, z[pos] )
+        changeLabelpB()
         global pA
         pA = True
+    else:
+        print('player One wins')
 
 
 def printTable(pos, player):
@@ -85,39 +90,35 @@ def printTable(pos, player):
 
 
 def checkCanPlay(pos):
-    if pos == 0 and TTT[0][0] == 0:
-        return True
-    elif pos == 1 and TTT[0][1] == 0:
-        return True
-    elif pos == 2 and TTT[0][2] == 0: 
-        return True
-    elif pos == 3 and TTT[1][0] == 0:
-        return  True
-    elif pos == 4 and TTT[1][1] == 0:
-        return True
-    elif pos == 5 and TTT[1][2] == 0:
-        return True
-    elif pos == 6 and TTT[2][0] == 0:
-        return True
-    elif pos == 7 and TTT[2][1] == 0:
-        return True
-    elif pos == 8 and TTT[2][2] == 0:
-        return True
-    else:
-        return False
+    if pos == 0 and TTT[0][0] == 0:return True
+    elif pos == 1 and TTT[0][1] == 0:return True
+    elif pos == 2 and TTT[0][2] == 0: return True
+    elif pos == 3 and TTT[1][0] == 0:return  True
+    elif pos == 4 and TTT[1][1] == 0:return True
+    elif pos == 5 and TTT[1][2] == 0:return True
+    elif pos == 6 and TTT[2][0] == 0:return True
+    elif pos == 7 and TTT[2][1] == 0:return True
+    elif pos == 8 and TTT[2][2] == 0:return True
+    else: return False
 
-# def checkWinning(player):
-#     for i in range(3):
-#          if(TTT[i][0]==TTT[i][1]==TTT[i][2]==player or TTT[0][i]==TTT[1][i]==TTT[2][i]==player):
-#              print('player X wins!')
+def checkWin(player):
+    if TTT[0][0] == player and TTT[0][1] == player and TTT[0][2] == player:return True
+    elif  TTT[1][0] == player and TTT[1][1] == player and TTT[1][2] == player:return True
+    elif  TTT[2][0] == player and TTT[2][1] == player and TTT[2][2] == player:return True
+    elif  TTT[0][0] == player and TTT[1][0] == player and TTT[2][0] == player:return True
+    elif  TTT[0][1] == player and TTT[1][1] == player and TTT[2][1] == player:return True
+    elif  TTT[0][2] == player and TTT[1][2] == player and TTT[2][2] == player:return True
+    elif  TTT[0][0] == player and TTT[1][1] == player and TTT[2][2] == player:return True
+    elif  TTT[0][2] == player and TTT[1][1] == player and TTT[2][0] == player:return True
+    else: return False
+
 #---------------------------------------------------------------------------------------
-def changeLabel(*_):
-    if(pA == True):
-        cmds.text(playerLabel, label='Player One', font='boldLabelFont', e=True)
-        cmds.nodeIconButton(btnAlign[someTrick], e= True, image1=sc +'/DIBACCO_oxo/X.png')
-    else:
-        cmds.text(playerLabel, label='Player Two', font='boldLabelFont', e=True)
-        cmds.nodeIconButton(btnAlign[someTrick], e= True, image1=sc +'/DIBACCO_oxo/0.png')
+def changeLabelpA(*_):
+    cmds.text(playerLabel, label='Player One', font='boldLabelFont', e=True)
+    cmds.nodeIconButton(btnAlign[someTrick], e= True, image1=sc +'/DIBACCO_oxo/X.png')
+def changeLabelpB(*_):
+    cmds.text(playerLabel, label='Player Two', font='boldLabelFont', e=True)
+    cmds.nodeIconButton(btnAlign[someTrick], e= True, image1=sc +'/DIBACCO_oxo/0.png')
 #---------------------------------------------------------------------------------------
 winName = 'OXO'
 backgroundColor = [40.0/255.0,35.0/255.0,39.0/255.0]
